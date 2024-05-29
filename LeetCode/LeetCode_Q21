@@ -1,0 +1,50 @@
+public class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        // ダミーヘッドを作成して、新しいリストの先頭を記録
+        ListNode dummyHead = new ListNode(0);
+        ListNode current = dummyHead;
+
+        // 両方のリストがnullでない間、要素を比較して新しいリストに追加
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                current.next = list1;
+                list1 = list1.next;
+            } else {
+                current.next = list2;
+                list2 = list2.next;
+            }
+            current = current.next;
+        }
+
+        // まだ要素が残っているリストを新しいリストの末尾に追加
+        if (list1 != null) {
+            current.next = list1;
+        } else {
+            current.next = list2;
+        }
+
+        // ダミーヘッドの次の要素が新しいリストの先頭
+        return dummyHead.next;
+    }
+
+    public static void main(String[] args) {
+        // テスト用にListNodeを作成
+        ListNode list1 = new ListNode(1);
+        list1.next = new ListNode(2);
+        list1.next.next = new ListNode(4);
+
+        ListNode list2 = new ListNode(1);
+        list2.next = new ListNode(3);
+        list2.next.next = new ListNode(4);
+
+        Solution solution = new Solution();
+        ListNode mergedList = solution.mergeTwoLists(list1, list2);
+
+        // マージされたリストを出力
+        System.out.print("Merged list: ");
+        while (mergedList != null) {
+            System.out.print(mergedList.val + " ");
+            mergedList = mergedList.next;
+        }
+    }
+}
